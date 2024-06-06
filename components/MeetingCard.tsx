@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
-import { avatarImages } from "@/constants";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
-import { cn } from "@/lib/utils";
 
-type Props = {
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { avatarImages } from "@/constants";
+import { useToast } from "./ui/use-toast";
+
+interface MeetingCardProps {
   title: string;
   date: string;
   icon: string;
@@ -16,9 +16,9 @@ type Props = {
   buttonText?: string;
   handleClick: () => void;
   link: string;
-};
+}
 
-function MeetingCard({
+const MeetingCard = ({
   icon,
   title,
   date,
@@ -27,7 +27,7 @@ function MeetingCard({
   handleClick,
   link,
   buttonText,
-}: Props) {
+}: MeetingCardProps) => {
   const { toast } = useToast();
 
   return (
@@ -88,6 +88,6 @@ function MeetingCard({
       </article>
     </section>
   );
-}
+};
 
 export default MeetingCard;
