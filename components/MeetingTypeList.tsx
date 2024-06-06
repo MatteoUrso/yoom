@@ -178,13 +178,7 @@ function MeetingTypeList() {
         title="Type the link here"
         className="text-center"
         buttonText="Join Meeting"
-        handleClick={() => {
-          let userId = values.link.replace(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/`,
-            "",
-          );
-          router.push(`/meeting/${userId}`);
-        }}
+        handleClick={() => router.push(`/meeting/${values.link}`)}
       >
         <Input
           placeholder="Meeting link"
