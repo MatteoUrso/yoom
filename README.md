@@ -55,8 +55,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/adrianhajdin/zoom-clone.git
-cd zoom-clone
+git clone https://github.com/MatteoUrso/yoom.git
+cd yoom
 ```
 
 **Installation**
@@ -96,120 +96,196 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 <details>
 <summary><code>app/globals.css</code></summary>
+
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-- {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  }
-
-/_ ======== stream css overrides ======== _/
-.str-video\_\_call-stats {
-max-width: 500px;
-position: relative;
 }
 
-.str-video**speaker-layout**wrapper {
-max-height: 700px;
+/* ======== stream css overrides ======== */
+.str-video__call-stats {
+  max-width: 500px;
+  position: relative;
 }
 
-.str-video\_\_participant-details {
-color: white;
+.str-video__speaker-layout__wrapper {
+  max-height: 700px;
 }
 
-.str-video\_\_menu-container {
-color: white;
+.str-video__participant-details {
+  color: white;
 }
 
-.str-video\_\_notification {
-color: white;
+.str-video__menu-container {
+  color: white;
 }
 
-.str-video\_\_participant-list {
-background-color: #1c1f2e;
-padding: 10px;
-border-radius: 10px;
-color: white;
-height: 100%;
+.str-video__notification {
+  color: white;
 }
 
-.str-video**call-controls**button {
-height: 40px;
+.str-video__participant-list {
+  background-color: #1c1f2e;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  height: 100%;
+}
+
+.str-video__call-controls__button {
+  height: 40px;
 }
 
 .glassmorphism {
-background: rgba(255, 255, 255, 0.25);
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 .glassmorphism2 {
-background: rgba(18, 17, 17, 0.25);
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
+  background: rgba(18, 17, 17, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/_ ==== clerk class override ===== _/
+/* ==== clerk class override ===== */
 
 .cl-userButtonPopoverActionButtonIcon {
-color: white;
+  color: white;
 }
 
 .cl-logoBox {
-height: 40px;
+  height: 40px;
 }
 .cl-dividerLine {
-background: #252a41;
-height: 2px;
+  background: #252a41;
+  height: 2px;
 }
 
 .cl-socialButtonsIconButton {
-border: 3px solid #565761;
+  border: 3px solid #565761;
 }
 
 .cl-internal-wkkub3 {
-color: white;
+  color: white;
 }
 .cl-userButtonPopoverActionButton {
-color: white;
+  color: white;
 }
 
-/_ =============================== _/
+/* =============================== */
 
 @layer utilities {
-.flex-center {
-@apply flex justify-center items-center;
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
 }
 
-.flex-between {
-@apply flex justify-between items-center;
-}
-}
-
-/_ animation _/
+/* animation */
 
 .show-block {
-width: 100%;
-max-width: 350px;
-display: block;
-animation: show 0.7s forwards linear;
+  width: 100%;
+  max-width: 350px;
+  display: block;
+  animation: show 0.7s forwards linear;
 }
 
 @keyframes show {
-0% {
-animation-timing-function: ease-in;
-width: 0%;
-}
+  0% {
+    animation-timing-function: ease-in;
+    width: 0%;
+  }
 
-100% {
-animation-timing-function: ease-in;
-width: 100%;
+  100% {
+    animation-timing-function: ease-in;
+    width: 100%;
+  }
 }
-}
-
 ```
 
+</details>
+
+<details>
+<summary><code>tailwind.config.ts</code></summary>
+
+```typescript
+import type { Config } from 'tailwindcss';
+
+const config = {
+  darkMode: ['class'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  prefix: '',
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
+    extend: {
+      colors: {
+        dark: {
+          1: '#1C1F2E',
+          2: '#161925',
+          3: '#252A41',
+          4: '#1E2757',
+        },
+        blue: {
+          1: '#0E78F9',
+        },
+        sky: {
+          1: '#C9DDFF',
+          2: '#ECF0FF',
+          3: '#F5FCFF',
+        },
+        orange: {
+          1: '#FF742E',
+        },
+        purple: {
+          1: '#830EF9',
+        },
+        yellow: {
+          1: '#F9A90E',
+        },
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      backgroundImage: {
+        hero: "url('/images/hero-background.png')",
+      },
+    },
+  },
+  plugins: [require('tailwindcss-animate')],
+} satisfies Config;
+
+export default config;
 ```
+
+</details>
